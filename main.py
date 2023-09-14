@@ -79,6 +79,10 @@ if __name__ == "__main__":
     tty.setcbreak(sys.stdin)
     x = 0
     while 1:
+        audio_input = open("audio_test.wav", "rb") #test and then replace with mic input
+        q = convert_audio_to_text(audio_input)
+        print(q)
+        
         x=sys.stdin.read(1)[0]
         print("You pressed", x)
         if x == "1":
@@ -89,8 +93,7 @@ if __name__ == "__main__":
             getPresetEffect(p)
         if x == "g":
             #TODO: start mic, translate,set q
-            audio_input = open("audio_test.wav", "rb") #test and then replace with mic input
-            q = convert_audio_to_text(audio_input)
+            
             getGPTeffect(q)
             # q = "a heavy distiortion into a delay"
             # getGPTeffect(q)

@@ -14,8 +14,6 @@ import json
 import openai
 import os
 
-openai.api_key = os.environ.get('OPENAI_API_KEY')
-
 with open("sel_default_values.txt", "r") as f:
     default_values = json.load(f)
 
@@ -23,6 +21,8 @@ with open("sel_default_values.txt", "r") as f:
 from dotenv import load_dotenv
 
 load_dotenv()
+
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 
 def generateEffect(query):
