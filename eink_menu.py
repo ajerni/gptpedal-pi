@@ -57,4 +57,4 @@ def makeText(t1, t2, t3, t4):
     display.image(image)
     display.display()
 
-    return "display changed"
+    return "...display ready..."
