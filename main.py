@@ -1,5 +1,5 @@
 from pyo import *
-from aifunctions import generateEffect
+from aifunctions import generateEffect, convert_audio_to_text
 
 from fxchain import fxChain
 import ast
@@ -89,8 +89,11 @@ if __name__ == "__main__":
             getPresetEffect(p)
         if x == "g":
             #TODO: start mic, translate,set q
-            q = "a heavy distiortion into a delay"
+            audio_input = open("audio_test.wav", "rb") #test and then replace with mic input
+            q = convert_audio_to_text(audio_input)
             getGPTeffect(q)
+            # q = "a heavy distiortion into a delay"
+            # getGPTeffect(q)
         if x == "x":
             print("make exit command")
             raise KeyboardInterrupt

@@ -11,6 +11,10 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 import json
+import openai
+import os
+
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 with open("sel_default_values.txt", "r") as f:
     default_values = json.load(f)
@@ -65,5 +69,16 @@ def generateEffect(query):
     )
 
     return res
+
+
+
+def convert_audio_to_text(audio_file):
+    try:
+        transcript = openai.Audio.transcribe("whisper-1", audio_file)
+        message_text = transcript["text"]
+        return message_text
+    except Exception as e:
+        print(e)
+        return
 
 
