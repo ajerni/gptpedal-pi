@@ -22,13 +22,31 @@ def getPresetEffect(p):
     print(sel_dict)
     startServer(sel_dict)
 
-
 def startServer(sel_dict):
     s = Server()
-    s.setOutputDevice(2) #pa_list_devices()
+    devices = pa_get_output_devices()
+    device_names = devices[0]
+    device_indices = devices[1]
+    output_device_index = None
+    for i, name in enumerate(device_names):
+        if "Scarlett 2i2 USB" in name:
+            output_device_index = device_indices[i]
+            break
+    if output_device_index is not None:
+        s.setOutputDevice(output_device_index)
+    else:
+        print("Scarlett 2i2 USB device not found.")
+        return
     s.boot()
     s.start()
     startFxChain(sel_dict, s)
+
+# def startServer(sel_dict):
+#     s = Server()
+#     s.setOutputDevice(2) #pa_list_devices()
+#     s.boot()
+#     s.start()
+#     startFxChain(sel_dict, s)
 
 
 def startFxChain(sel_dict, server):
