@@ -1,12 +1,11 @@
 import busio
 import board
-from digitalio import DigitalInOut, Direction
+from digitalio import DigitalInOut
 
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-from adafruit_epd.epd import Adafruit_EPD
-from adafruit_epd.ssd1680 import Adafruit_SSD1680  # pylint: disable=unused-import
+from adafruit_epd.ssd1680 import Adafruit_SSD1680  
 
 # create the spi device and pins we will need
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
@@ -48,11 +47,12 @@ font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 # font = ImageFont.truetype('Minecraftia.ttf', 8)
 
-def makeText(t1, t2):
+def makeText(t1, t2, t3, t4):
 
-    # Write two lines of text.
-    draw.text((20, 20), t1, font=font, fill=BLACK)
-    draw.text((20, 60), t2, font=font, fill=BLACK)
+    draw.text((20, 5), t1, font=font, fill=BLACK)
+    draw.text((20, 35), t2, font=font, fill=BLACK)
+    draw.text((20, 65), t3, font=font, fill=BLACK)
+    draw.text((20, 95), t4, font=font, fill=BLACK)
 
     display.image(image)
     display.display()

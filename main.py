@@ -54,7 +54,7 @@ def read_ch():
 
 if __name__ == "__main__":
 
-    done = makeText("1. Steroverb", "2. Chorus")
+    done = makeText("1 - Steroverb", "2 - Chorus", "g - GPT", "x - Exit")
     print(done)
   
     filedescriptors = termios.tcgetattr(sys.stdin)
@@ -71,7 +71,7 @@ if __name__ == "__main__":
             getPresetEffect(p)
         if x == "g":
             #TODO: start mic, translate,set q
-            q = "a short delay and a stereo reverb"
+            q = "a heavy distiortion into a delay"
             getGPTeffect(q)
         if x == "x":
             print("make exit command")
