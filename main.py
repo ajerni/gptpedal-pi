@@ -25,36 +25,36 @@ def getPresetEffect(p):
     print(sel_dict)
     startServer(sel_dict)
 
-def startServer(sel_dict):
-    s = Server()
-    devices = pa_get_output_devices()
-    device_names = devices[0]
-    device_indices = devices[1]
-    output_device_index = None
-    for i, name in enumerate(device_names):
-        if "Scarlett 2i2 USB" in name:
-            output_device_index = device_indices[i]
-            break
-    if output_device_index is not None:
-        s.setOutputDevice(output_device_index)
-    else:
-        print("Scarlett 2i2 USB device not found.")
-        return
-    s.boot()
-    s.start()
-    startFxChain(sel_dict, s)
-
-
 # def startServer(sel_dict):
 #     s = Server()
-#     s.setOutputDevice(2) #pa_list_devices()
+#     devices = pa_get_output_devices()
+#     device_names = devices[0]
+#     device_indices = devices[1]
+#     output_device_index = None
+#     for i, name in enumerate(device_names):
+#         if "Scarlett 2i2 USB" in name:
+#             output_device_index = device_indices[i]
+#             break
+#     if output_device_index is not None:
+#         s.setOutputDevice(output_device_index)
+#     else:
+#         print("Scarlett 2i2 USB device not found.")
+#         return
 #     s.boot()
 #     s.start()
 #     startFxChain(sel_dict, s)
 
 
+def startServer(sel_dict):
+    s = Server()
+    s.setOutputDevice(1) #pa_list_devices() / pa_get_output_devices()
+    s.boot()
+    s.start()
+    startFxChain(sel_dict, s)
+
+
 def startFxChain(sel_dict, server):
-    # input = Input(chnl=2) / s.setInputDevice(someDeviceIndex)
+    # input = Input(chnl=2) / pa_get_input_devices()
     input = Input()
     output = fxChain(
         input,
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             p = presets.CHORUS
             getPresetEffect(p)
         if x == "g":
-            # USB PnP Sound Device TODO: always use the same mic
+            # USB PnP Sound Device TODO: always use the same mic / pa_get_input_devices()
             print("recording")
             record = 'arecord -d 4 my_audio.wav'
             p = subprocess.Popen(record, shell=True)
