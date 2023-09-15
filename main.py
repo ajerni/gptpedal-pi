@@ -95,6 +95,7 @@ if __name__ == "__main__":
         if x == "g":
             # USB PnP Sound Device TODO: switch input to mic / pa_get_input_devices()
             print("recording")
+            #record = 'arecord -D plug:hw:3,0 -d 4 -f S16_LE -r 8000 my_audio.wav'
             record = 'arecord -d 4 my_audio.wav'
             p = subprocess.Popen(record, shell=True)
             time.sleep(5)
