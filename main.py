@@ -81,11 +81,7 @@ if __name__ == "__main__":
     filedescriptors = termios.tcgetattr(sys.stdin)
     tty.setcbreak(sys.stdin)
     x = 0
-    while 1:
-        # audio_input = open("audio_test.wav", "rb") #test and then replace with mic input
-        # q = convert_audio_to_text(audio_input)
-        # print(q)
-        
+    while 1:    
         x=sys.stdin.read(1)[0]
         print("You pressed", x)
         if x == "1":
