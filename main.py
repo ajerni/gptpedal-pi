@@ -44,6 +44,7 @@ def startServer(sel_dict):
     s.start()
     startFxChain(sel_dict, s)
 
+
 # def startServer(sel_dict):
 #     s = Server()
 #     s.setOutputDevice(2) #pa_list_devices()
