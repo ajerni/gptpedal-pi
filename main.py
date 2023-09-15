@@ -47,14 +47,14 @@ def getPresetEffect(p):
 
 def startServer(sel_dict):
     s = Server()
-    s.setOutputDevice(1) #pa_list_devices() / pa_get_output_devices()
+    s.setOutputDevice(1) #pa_list_devices() / pa_get_output_devices()/ 1 = Scarlett 2i2 USB
     s.boot()
     s.start()
     startFxChain(sel_dict, s)
 
 
 def startFxChain(sel_dict, server):
-    # input = Input(chnl=2) / pa_get_input_devices()
+    # pa_get_input_devices()
     input = Input()
     output = fxChain(
         input,
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             p = presets.CHORUS
             getPresetEffect(p)
         if x == "g":
-            # USB PnP Sound Device TODO: always use the same mic / pa_get_input_devices()
+            # USB PnP Sound Device TODO: switch input to mic / pa_get_input_devices()
             print("recording")
             record = 'arecord -d 4 my_audio.wav'
             p = subprocess.Popen(record, shell=True)
@@ -103,6 +103,7 @@ if __name__ == "__main__":
             audio_input = open("my_audio.wav", "rb")
             q = convert_audio_to_text(audio_input)
             print(q)
+            # Scarlett 2i2 USB TODO: switch input to Scarlett to catch signal in Effects / pa_get_input_devices()
             getGPTeffect(q)
         if x == "x":
             print("make exit command")
