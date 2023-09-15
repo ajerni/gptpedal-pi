@@ -9,6 +9,9 @@ import sys, tty, termios
 
 from eink_menu import makeText
 
+import subprocess
+import time
+
 
 def getGPTeffect(q):
     sel_dict_string = generateEffect(q)
@@ -79,9 +82,9 @@ if __name__ == "__main__":
     tty.setcbreak(sys.stdin)
     x = 0
     while 1:
-        audio_input = open("audio_test.wav", "rb") #test and then replace with mic input
-        q = convert_audio_to_text(audio_input)
-        print(q)
+        # audio_input = open("audio_test.wav", "rb") #test and then replace with mic input
+        # q = convert_audio_to_text(audio_input)
+        # print(q)
         
         x=sys.stdin.read(1)[0]
         print("You pressed", x)
@@ -92,11 +95,17 @@ if __name__ == "__main__":
             p = presets.CHORUS
             getPresetEffect(p)
         if x == "g":
-            #TODO: start mic, translate,set q
-            
+            # USB PnP Sound Device TODO: always use the same mic
+            print("recording")
+            record = 'arecord -d 4 my_audio.wav'
+            p = subprocess.Popen(record, shell=True)
+            time.sleep(5)
+            p.kill()
+            print("done recording")
+            audio_input = open("my_audio.wav", "rb")
+            q = convert_audio_to_text(audio_input)
+            print(q)
             getGPTeffect(q)
-            # q = "a heavy distiortion into a delay"
-            # getGPTeffect(q)
         if x == "x":
             print("make exit command")
             raise KeyboardInterrupt
