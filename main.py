@@ -54,6 +54,7 @@ def startServer(sel_dict):
 
 
 def startFxChain(sel_dict, server):
+    # input = Input(chnl=2) / s.setInputDevice(someDeviceIndex)
     input = Input()
     output = fxChain(
         input,
