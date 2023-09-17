@@ -28,7 +28,7 @@ def getPresetEffect(p):
 def startServer(sel_dict):
     s = Server()
 
-    output_devices = pa_get_output_devices(
+    output_devices = pa_get_output_devices()
     soundcard = extract_scarlett_index(output_devices)
     s.setOutputDevice(soundcard) #pa_list_devices() / pa_get_output_devices()/ 0 or 1 or 2 = Scarlett 2i2 USB
     s.boot()
