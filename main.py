@@ -94,7 +94,13 @@ if __name__ == "__main__":
             break
         if ch == "1":
             p = presets.STEEREOVERB
-            getPresetEffect(p)
+            thread = threading.Thread(target=getPresetEffect, args=(p,))
+            thread.daemon = True
+            thread.start()
+            
+            
+            #p = presets.STEEREOVERB
+            #getPresetEffect(p)
         if ch == "2":
             p = presets.CHORUS
             getPresetEffect(p)
