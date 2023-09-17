@@ -25,29 +25,16 @@ def getPresetEffect(p):
     print(sel_dict)
     startServer(sel_dict)
 
-# def startServer(sel_dict):
-#     s = Server()
-#     devices = pa_get_output_devices()
-#     device_names = devices[0]
-#     device_indices = devices[1]
-#     output_device_index = None
-#     for i, name in enumerate(device_names):
-#         if "Scarlett 2i2 USB" in name:
-#             output_device_index = device_indices[i]
-#             break
-#     if output_device_index is not None:
-#         s.setOutputDevice(output_device_index)
-#     else:
-#         print("Scarlett 2i2 USB device not found.")
-#         return
-#     s.boot()
-#     s.start()
-#     startFxChain(sel_dict, s)
-
-
 def startServer(sel_dict):
     s = Server()
-    s.setOutputDevice(1) #pa_list_devices() / pa_get_output_devices()/ 1 = Scarlett 2i2 USB
+
+    output_devices = pa_get_output_devices()
+    print(output_devices)
+    soundcard = extract_scarlett_index(output_devices)
+    print(soundcard)
+   
+    s.setOutputDevice(soundcard) #pa_list_devices() / pa_get_output_devices()/ 0 or 1 or 2 = Scarlett 2i2 USB
+    #s.setOutputDevice(1) #pa_list_devices() / pa_get_output_devices()/ 1 = Scarlett 2i2 USB
     s.boot()
     s.start()
     startFxChain(sel_dict, s)
@@ -75,6 +62,24 @@ def read_ch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
+def get_usb_pnp_device(devices): # extracts "hw:x,y" from 'USB PnP Sound Device'
+    for device in devices[0]:
+        if 'USB PnP Sound Device' in device:
+            return device.split('(')[-1].split(')')[0].strip()
+    return None
+
+# def get_soundcard_device(devices): # extracts "hw:x,y" from 'Scarlett 2i2 USB'
+#     for device in devices[0]:
+#         if 'Scarlett 2i2 USB' in device:
+#             return device.split('(')[-1].split(')')[0].strip()
+#     return None
+
+def extract_scarlett_index(t):
+    for i, element in enumerate(t[0]):
+        if "Scarlett" in element:
+            return i
+    return None
+
 if __name__ == "__main__":
 
     done = makeText("1 - Steroverb", "2 - Chorus", "g - GPT", "x - Exit")
@@ -95,8 +100,13 @@ if __name__ == "__main__":
         if x == "g":
             # USB PnP Sound Device TODO: switch input to mic / pa_get_input_devices()
             print("recording")
-            #record = 'arecord -D plug:hw:3,0 -d 4 -f S16_LE -r 8000 my_audio.wav'
-            record = 'arecord -d 4 my_audio.wav'
+            input_devices = pa_get_input_devices()
+            print(input_devices)
+            usb_mic = get_usb_pnp_device(input_devices)
+            print(usb_mic)
+            record = f'arecord -D {usb_mic} -d 4 -f S16_LE -r 44100 my_audio.wav'
+            #record = 'arecord -D hw:3,0 -d 4 -f S16_LE -r 44100 my_audio.wav'
+            #record = 'arecord -d 4 my_audio.wav'
             p = subprocess.Popen(record, shell=True)
             time.sleep(5)
             p.kill()
