@@ -28,9 +28,12 @@ def getPresetEffect(p):
 def startServer(sel_dict):
     s = Server()
 
-    output_devices = pa_get_output_devices()
+    output_devices = pa_get_output_devices() # i.e. (['vc4-hdmi-1: MAI PCM i2s-hifi-0 (hw:2,0)', 'Scarlett 2i2 USB: Audio (hw:3,0)', 'pulse', 'default'], [1, 2, 3, 4])
+    print(output_devices)
     soundcard = extract_scarlett_index(output_devices)
+    print(soundcard)
     s.setOutputDevice(soundcard) #pa_list_devices() / pa_get_output_devices()/ 0 or 1 or 2 = Scarlett 2i2 USB
+    #s.setOutputDevice(2) 
     s.boot()
     s.start()
     startFxChain(sel_dict, s)
@@ -66,7 +69,7 @@ def get_usb_pnp_device(devices): # extracts "hw:x,y" for 'USB PnP Sound Device'
 def extract_scarlett_index(t):
     for i, element in enumerate(t[0]):
         if "Scarlett" in element:
-            return i
+            return t[1][i]
     return None
 
 if __name__ == "__main__":
