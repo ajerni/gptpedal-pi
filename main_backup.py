@@ -13,8 +13,6 @@ import subprocess
 import time
 import threading
 
-s = Server()
-
 
 def getGPTeffect(q):
     sel_dict_string = generateEffect(q)
@@ -29,22 +27,7 @@ def getPresetEffect(p):
     startServer(sel_dict)
 
 def startServer(sel_dict):
-
-    global s
-    # s.gui(exit=False, title="Andi's GPT-Pedal")
-    
-    # s.closeGui()
-
-    # if s.getIsStarted:
-        # s.stop()
-        # s.deactivate()
-        # s.shutdown
-
-    # if s.getIsBooted:
-        # s.stop()
-        # s.deactivate()
-        # s.closeGui()
-        # s.shutdown
+    s = Server()
 
     output_devices = pa_get_output_devices() # i.e. (['vc4-hdmi-1: MAI PCM i2s-hifi-0 (hw:2,0)', 'Scarlett 2i2 USB: Audio (hw:3,0)', 'pulse', 'default'], [1, 2, 3, 4])
     print(output_devices)
@@ -54,7 +37,6 @@ def startServer(sel_dict):
     #s.setOutputDevice(2) 
     s.boot()
     s.start()
-    
     startFxChain(sel_dict, s)
 
 
@@ -111,13 +93,14 @@ if __name__ == "__main__":
         if ch == 'x':
             break
         if ch == "1":
-            # p = presets.STEEREOVERB
-            # thread = threading.Thread(target=getPresetEffect, args=(p,))
-            # thread.daemon = True
-            # thread.start()
-            
             p = presets.STEEREOVERB
-            getPresetEffect(p)
+            thread = threading.Thread(target=getPresetEffect, args=(p,))
+            thread.daemon = True
+            thread.start()
+            
+            
+            #p = presets.STEEREOVERB
+            #getPresetEffect(p)
         if ch == "2":
             p = presets.CHORUS
             getPresetEffect(p)
@@ -137,3 +120,40 @@ if __name__ == "__main__":
             print(q)
             getGPTeffect(q)
         print("key is: " + ch)
+  
+    # filedescriptors = termios.tcgetattr(sys.stdin)
+    # tty.setcbreak(sys.stdin)
+    # x = 0
+    # while 1:    
+    #     x=sys.stdin.read(1)[0]
+    #     print("You pressed", x)
+    #     if x == "1":
+    #         p = presets.STEEREOVERB
+    #         t = threading.Thread(name='preset process', target=getPresetEffect(p))
+    #         t.setDaemon(True)
+    #         t.start()
+    #         #getPresetEffect(p)
+    #     if x == "2":
+    #         p = presets.CHORUS
+    #         getPresetEffect(p)
+    #     if x == "g":
+    #         print("recording")
+    #         input_devices = pa_get_input_devices()
+    #         usb_mic = get_usb_pnp_device(input_devices)
+    #         record = f'arecord -D {usb_mic} -d 4 -f S16_LE -r 44100 my_audio.wav'
+    #         #record = 'arecord -D hw:3,0 -d 4 -f S16_LE -r 44100 my_audio.wav'
+    #         #record = 'arecord -d 4 my_audio.wav'
+    #         p = subprocess.Popen(record, shell=True)
+    #         time.sleep(5)
+    #         p.kill()
+    #         print("done recording")
+    #         audio_input = open("my_audio.wav", "rb")
+    #         q = convert_audio_to_text(audio_input)
+    #         print(q)
+    #         getGPTeffect(q)
+    #     if x == "x":
+    #         print("make exit command")
+    #         raise KeyboardInterrupt
+    # termios.tcsetattr(sys.stdin, termios.TCSADRAIN, filedescriptors)
+
+  

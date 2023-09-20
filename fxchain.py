@@ -103,6 +103,7 @@ def fxChain(input, selections):
     fx8_out = Interp(fx7_out, fx8, interp=fx8_params.get("use", 0))
     if fx8_params.get("use") == 1:
         fx8.ctrl(title="Chorus")
+    
 
     fx9_params = selections.get("harmonizer", {})
     fx9 = Harmonizer(
