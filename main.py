@@ -32,21 +32,7 @@ def getPresetEffect(p):
 def startServer(sel_dict):
 
     global s
-    # s.gui(exit=False, title="Andi's GPT-Pedal")
     
-    # s.closeGui()
-
-    # if s.getIsStarted:
-        # s.stop()
-        # s.deactivate()
-        # s.shutdown
-
-    # if s.getIsBooted:
-        # s.stop()
-        # s.deactivate()
-        # s.closeGui()
-        # s.shutdown
-
     output_devices = pa_get_output_devices() # i.e. (['vc4-hdmi-1: MAI PCM i2s-hifi-0 (hw:2,0)', 'Scarlett 2i2 USB: Audio (hw:3,0)', 'pulse', 'default'], [1, 2, 3, 4])
     print(output_devices)
     soundcard = extract_scarlett_index(output_devices)
@@ -111,12 +97,7 @@ if __name__ == "__main__":
         ch = read_ch()
         if ch == 'x':
             break
-        if ch == "1":
-            # p = presets.STEEREOVERB
-            # thread = threading.Thread(target=getPresetEffect, args=(p,))
-            # thread.daemon = True
-            # thread.start()
-            
+        if ch == "1": 
             p = presets.STEEREOVERB
             getPresetEffect(p)
         if ch == "2":
