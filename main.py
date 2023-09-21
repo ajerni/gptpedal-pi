@@ -13,7 +13,6 @@ from eink_menu import makeText
 
 import subprocess
 import time
-import threading
 
 s = Server()
 
@@ -138,4 +137,6 @@ if __name__ == "__main__":
             q = convert_audio_to_text(audio_input)
             print(q)
             getGPTeffect(q)
+        
+            
         print("key is: " + ch)

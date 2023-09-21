@@ -7,3 +7,4 @@
 
 - python -i main.py to keep process running in interactive mode
 
+main.py can be run directly or via start.py or menu.py

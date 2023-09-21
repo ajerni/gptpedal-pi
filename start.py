@@ -3,9 +3,10 @@ import subprocess
 from pyo import *
 from eink_menu import makeText
 
+
 if __name__ == "__main__":
 
-    done = makeText("GPT Pedal", "", "s - Start", "x - Exit")
+    done = makeText("GPT Pedal", "m - Menu (GUI)", "s - Start (keys)", "x - Exit")
     print(done)
 
     def read_ch():
@@ -25,7 +26,12 @@ if __name__ == "__main__":
         if ch == "s":
             pedal = subprocess.Popen(['python', 'main.py'])
             pedal.wait()
-            done = makeText("GPT Pedal", "", "s - Start", "x - Exit")
+            done = makeText("GPT Pedal", "m - Menu (GUI)", "s - Start (keys)", "x - Exit")
+            print(done)
+        if ch == "m":
+            pedal = subprocess.Popen(['python', 'menu.py'])
+            pedal.wait()
+            done = makeText("GPT Pedal", "m - Menu (GUI)", "s - Start (keys)", "x - Exit")
             print(done)
     
         print("key is: " + ch)
