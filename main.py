@@ -1,4 +1,6 @@
 from pyo import *
+from pyo import pa_get_output_devices, pa_get_input_devices
+
 from aifunctions import generateEffect, convert_audio_to_text
 
 from fxchain import fxChain
@@ -93,7 +95,7 @@ def extract_scarlett_index(t):
 
 if __name__ == "__main__":
 
-    done = makeText("1 - Steroverb", "2 - Chorus", "g - GPT", "x - Exit")
+    done = makeText("Select effect:", "1 - Reverb", "2 - Chorus", "g - GPT")
     print(done)
 
     def read_ch():

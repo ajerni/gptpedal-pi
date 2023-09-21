@@ -1,11 +1,11 @@
 import sys, tty, termios
 import subprocess
-import threading
+from pyo import *
 from eink_menu import makeText
 
 if __name__ == "__main__":
 
-    done = makeText("s - Start", "x - Exit", "", "")
+    done = makeText("GPT Pedal", "", "s - Start", "x - Exit")
     print(done)
 
     def read_ch():
@@ -25,9 +25,7 @@ if __name__ == "__main__":
         if ch == "s":
             pedal = subprocess.Popen(['python', 'main.py'])
             pedal.wait()
-            done = makeText("s - Start", "x - Exit", "", "back")
+            done = makeText("GPT Pedal", "", "s - Start", "x - Exit")
             print(done)
-            # result = pedal.poll()
-            # if result is not None:
-            #     print('the other process has finished and retuned %s' % result)
+    
         print("key is: " + ch)
