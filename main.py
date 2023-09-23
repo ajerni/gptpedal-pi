@@ -102,6 +102,21 @@ if __name__ == "__main__":
             if dweet["content"]["text"]=="verb":
                 p = presets.DOPPELVERB
                 getPresetEffect(p)
+            if dweet["content"]["text"]=="shiny":
+                p = presets.SHINY
+                getPresetEffect(p)
+            if dweet["content"]["text"]=="gpt":
+                input_devices = pa_get_input_devices()
+                usb_mic = get_usb_pnp_device(input_devices)
+                record = f'arecord -D {usb_mic} -d 4 -f S16_LE -r 44100 my_audio.wav'
+                p = subprocess.Popen(record, shell=True)
+                time.sleep(5)
+                p.kill()
+                print("done recording")
+                audio_input = open("my_audio.wav", "rb")
+                q = convert_audio_to_text(audio_input)
+                print(q)
+                getGPTeffect(q)
 
         ch = read_ch()
         if ch == 'x':
