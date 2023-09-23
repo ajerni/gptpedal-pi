@@ -14,7 +14,6 @@ from eink_menu import makeText
 import subprocess
 import time
 
-# from dweet import listen_dweet
 import dweepy
 
 s = Server()
