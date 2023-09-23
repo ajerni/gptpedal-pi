@@ -14,6 +14,9 @@ from eink_menu import makeText
 import subprocess
 import time
 
+# from dweet import listen_dweet
+import dweepy
+
 s = Server()
 
 
@@ -94,6 +97,13 @@ if __name__ == "__main__":
         return ch
 
     while True:
+
+        for dweet in dweepy.listen_for_dweets_from("aeraspipedal"):
+            print(dweet)
+            if dweet["content"]["text"]=="verb":
+                p = presets.DOPPELVERB
+                getPresetEffect(p)
+
         ch = read_ch()
         if ch == 'x':
             break
