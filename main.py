@@ -97,6 +97,7 @@ if __name__ == "__main__":
 
     while True:
 
+        # https://dweet.io/dweet/for/aeraspipedal?text=verb
         for dweet in dweepy.listen_for_dweets_from("aeraspipedal"):
             print(dweet)
             if dweet["content"]["text"]=="verb":
