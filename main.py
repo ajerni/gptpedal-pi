@@ -7,9 +7,9 @@ from fxchain import fxChain
 import ast
 from presets import presets
 
-import sys, tty, termios
+# import sys, tty, termios
 
-from eink_menu import makeText
+# from eink_menu import makeText
 
 import subprocess
 import time
@@ -58,15 +58,15 @@ def startFxChain(sel_dict, server):
 
     server.gui(locals())
 
-def read_ch():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
+# def read_ch():
+#     fd = sys.stdin.fileno()
+#     old_settings = termios.tcgetattr(fd)
+#     try:
+#         tty.setraw(sys.stdin.fileno())
+#         ch = sys.stdin.read(1)
+#     finally:
+#         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+#     return ch
 
 def get_usb_pnp_device(devices): # extracts "hw:x,y" for 'USB PnP Sound Device'
     for device in devices[0]:
@@ -82,18 +82,18 @@ def extract_scarlett_index(t):
 
 if __name__ == "__main__":
 
-    done = makeText("Select effect:", "1 - Reverb", "2 - Chorus", "g - GPT")
-    print(done)
+    # done = makeText("Select effect:", "1 - Reverb", "2 - Chorus", "g - GPT")
+    # print(done)
 
-    def read_ch():
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+    # def read_ch():
+    #     fd = sys.stdin.fileno()
+    #     old_settings = termios.tcgetattr(fd)
+    #     try:
+    #         tty.setraw(sys.stdin.fileno())
+    #         ch = sys.stdin.read(1)
+    #     finally:
+    #         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    #     return ch
 
     while True:
 
@@ -119,30 +119,30 @@ if __name__ == "__main__":
                 print(q)
                 getGPTeffect(q)
 
-        ch = read_ch()
-        if ch == 'x':
-            break
-        if ch == "1": 
-            p = presets.STEEREOVERB
-            getPresetEffect(p)
-        if ch == "2":
-            p = presets.CHORUS
-            getPresetEffect(p)
-        if ch == "g":
-            print("recording")
-            input_devices = pa_get_input_devices()
-            usb_mic = get_usb_pnp_device(input_devices)
-            record = f'arecord -D {usb_mic} -d 4 -f S16_LE -r 44100 my_audio.wav'
-            #record = 'arecord -D hw:3,0 -d 4 -f S16_LE -r 44100 my_audio.wav'
-            #record = 'arecord -d 4 my_audio.wav'
-            p = subprocess.Popen(record, shell=True)
-            time.sleep(5)
-            p.kill()
-            print("done recording")
-            audio_input = open("my_audio.wav", "rb")
-            q = convert_audio_to_text(audio_input)
-            print(q)
-            getGPTeffect(q)
+        # ch = read_ch()
+        # if ch == 'x':
+        #     break
+        # if ch == "1": 
+        #     p = presets.STEEREOVERB
+        #     getPresetEffect(p)
+        # if ch == "2":
+        #     p = presets.CHORUS
+        #     getPresetEffect(p)
+        # if ch == "g":
+        #     print("recording")
+        #     input_devices = pa_get_input_devices()
+        #     usb_mic = get_usb_pnp_device(input_devices)
+        #     record = f'arecord -D {usb_mic} -d 4 -f S16_LE -r 44100 my_audio.wav'
+        #     #record = 'arecord -D hw:3,0 -d 4 -f S16_LE -r 44100 my_audio.wav'
+        #     #record = 'arecord -d 4 my_audio.wav'
+        #     p = subprocess.Popen(record, shell=True)
+        #     time.sleep(5)
+        #     p.kill()
+        #     print("done recording")
+        #     audio_input = open("my_audio.wav", "rb")
+        #     q = convert_audio_to_text(audio_input)
+        #     print(q)
+        #     getGPTeffect(q)
         
             
-        print("key is: " + ch)
+        # print("key is: " + ch)
