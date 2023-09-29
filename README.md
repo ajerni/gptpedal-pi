@@ -7,8 +7,12 @@
 - python main.py für dweet Steuerung
 - python menu.py für Menü-Steuerung
 
-## Start service at:
-- /etc/systemd/system/gptpedal-raspi.service
-- Start: sudo systemctl enable gptpedal-raspi.service
-- Status: sudo systemctl status gptpedal-raspi.service
-- Stop: sudo systemctl status gptpedal-raspi.service + sudo systemctl disable gptpedal-raspi.service
+## Start on reboot script here:
+- sudo nano /etc/init.d/my_server
+
+Start:
+- /etc/init.d/my_server start
+- sudo update-rc.d my_server defaults
+
+Stop:
+- sudo update-rc.d my_server disable (enable)
