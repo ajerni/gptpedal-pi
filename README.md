@@ -8,11 +8,6 @@
 - python menu.py für Menü-Steuerung
 
 ## Start on reboot script here:
-- sudo nano /etc/init.d/my_server
+- sudo nano /home/pi/.config/autostart/gptpedal.desktop
 
-Start:
-- /etc/init.d/my_server start
-- sudo update-rc.d my_server defaults
-
-Stop:
-- sudo update-rc.d my_server disable (enable)
+- this runs startme.sh
