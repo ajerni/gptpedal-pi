@@ -2,7 +2,7 @@ import tkinter as tk
 from main import *
 
 def reverb():
-    p = presets.STEEREOVERB
+    p = presets.DOPPELVERB
     pedal = subprocess.Popen(['python', '-c', f"from main import getPresetEffect; getPresetEffect({p})"])
     pedal.wait()
 
