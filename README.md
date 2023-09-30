@@ -13,6 +13,6 @@
 - python menu.py für Menü-Steuerung
 
 ## Start on reboot script here:
-- sudo nano /home/pi/.config/autostart/gptpedal.desktop
+- sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
 
 - this runs startme.sh
